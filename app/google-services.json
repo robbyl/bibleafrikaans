@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:293373979095:android:61170e53200c8bae",
+        "mobilesdk_app_id": "1:293373979095:android:ca425eadcb280016",
         "android_client_info": {
-          "package_name": "tz.co.wadau.biblekingjamesversion"
+          "package_name": "tz.co.wadau.bibleafrikaans"
         }
       },
       "oauth_client": [
@@ -36,6 +36,51 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293373979095:android:61170e53200c8bae",
+        "android_client_info": {
+          "package_name": "tz.co.wadau.biblekingjamesversion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293373979095-fjt97io4gqornfdkvg7ce45ogkcd6s6e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tz.co.wadau.biblekingjamesversion",
+            "certificate_hash": "8a16a00221c9f5aca83d576a40013f3e03188004"
+          }
+        },
+        {
+          "client_id": "293373979095-h3ncnhvfovk54q2m0rogsi1egblqnui9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcD_Sz7NrRMi7MAvZ-7fNi3bUX-JaonqQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293373979095-h3ncnhvfovk54q2m0rogsi1egblqnui9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-6949253770172194~1404505662"
     }
   ],
   "configuration_version": "1"

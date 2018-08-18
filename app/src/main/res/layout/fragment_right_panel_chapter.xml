@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    tools:context="tz.co.wadau.biblekingjamesversion.fragment.RightPanelChapterFragment">
+    tools:context="tz.co.wadau.bibleafrikaans.fragment.RightPanelChapterFragment">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/verses_view_pager2"

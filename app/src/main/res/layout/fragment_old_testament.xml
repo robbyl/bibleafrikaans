@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context="tz.co.wadau.biblekingjamesversion.fragment.OldTestamentFragment">
+    tools:context="tz.co.wadau.bibleafrikaans.fragment.OldTestamentFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/books_list_recycler_view"

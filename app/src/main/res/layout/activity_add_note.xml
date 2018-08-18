@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorNotePadBg"
     android:orientation="vertical"
-    tools:context="tz.co.wadau.biblekingjamesversion.AddNoteActivity">
+    tools:context="tz.co.wadau.bibleafrikaans.AddNoteActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/add_note_toolbar"
@@ -22,7 +22,7 @@
         app:title="@string/add_note"
         app:titleTextColor="@android:color/white" />
 
-    <tz.co.wadau.biblekingjamesversion.customviews.LinedEditText
+    <tz.co.wadau.bibleafrikaans.customviews.LinedEditText
         android:id="@+id/note_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

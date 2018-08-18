@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="tz.co.wadau.biblekingjamesversion">
+    package="tz.co.wadau.bibleafrikaans">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.BibleActivity"
+            android:name="tz.co.wadau.bibleafrikaans.BibleActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -30,34 +30,34 @@
         </activity>
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.ChapterActivity"
+            android:name="tz.co.wadau.bibleafrikaans.ChapterActivity"
             android:configChanges="orientation|screenSize"
-            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity">
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".VersesSearchResultsActivity" />
         </activity>
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.SettingsActivity"
-            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity" />
+            android:name="tz.co.wadau.bibleafrikaans.SettingsActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity" />
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.NotesActivity"
-            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity"
+            android:name="tz.co.wadau.bibleafrikaans.NotesActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity"
             android:theme="@style/LightBlueTheme" />
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.AddNoteActivity"
-            android:parentActivityName="tz.co.wadau.biblekingjamesversion.NotesActivity"
+            android:name="tz.co.wadau.bibleafrikaans.AddNoteActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.NotesActivity"
             android:theme="@style/LightBlueTheme" />
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.BookmarksActivity"
-            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity" />
+            android:name="tz.co.wadau.bibleafrikaans.BookmarksActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity" />
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.VersesSearchResultsActivity"
+            android:name="tz.co.wadau.bibleafrikaans.VersesSearchResultsActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -68,7 +68,7 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <receiver android:name="tz.co.wadau.biblekingjamesversion.alarm.AlarmReceiver">
+        <receiver android:name="tz.co.wadau.bibleafrikaans.alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="tz.co.wadau.biblekingjamesversion.DISPLAY_NOTIFICATION" />
 
@@ -76,25 +76,25 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="tz.co.wadau.biblekingjamesversion.alarm.BootReceiver">
+        <receiver android:name="tz.co.wadau.bibleafrikaans.alarm.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="tz.co.wadau.biblekingjamesversion.TodayVerseActivity"
-            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity" />
+            android:name="tz.co.wadau.bibleafrikaans.TodayVerseActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity" />
 
-        <activity android:name=".VerseSearchActivity"
-            android:parentActivityName=".BibleActivity"/>
+        <activity android:name="tz.co.wadau.bibleafrikaans.VerseSearchActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity"/>
 
-        <activity android:name=".VerseHighlightsActivity"
-            android:parentActivityName=".BibleActivity"/>
+        <activity android:name="tz.co.wadau.bibleafrikaans.VerseHighlightsActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.BibleActivity"/>
 
         <activity
-            android:name=".AboutActivity"
-            android:parentActivityName=".SettingsActivity" />
+            android:name="tz.co.wadau.bibleafrikaans.AboutActivity"
+            android:parentActivityName="tz.co.wadau.bibleafrikaans.SettingsActivity" />
     </application>
 
 </manifest>

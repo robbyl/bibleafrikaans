@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tz.co.wadau.biblekingjamesversion.TodayVerseActivity">
+    tools:context="tz.co.wadau.bibleafrikaans.TodayVerseActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/today_verse_toolbar"
