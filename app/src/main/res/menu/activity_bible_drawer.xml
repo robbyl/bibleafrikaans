@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/first"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_bible"
+            android:icon="@drawable/ic_menu_bible"
+            android:title="@string/books" />
+
+        <item
+            android:id="@+id/nav_bookmarks"
+            android:icon="@drawable/ic_menu_bookmark"
+            android:title="@string/bookmarks" />
+        <item
+            android:id="@+id/nav_verse_highlight"
+            android:icon="@drawable/ic_menu_highlight"
+            android:title="@string/highlighted_verses"/>
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/ic_menu_notes"
+            android:title="@string/notes" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_menu_search"
+            android:title="@string/search_verses" />
+    </group>
+
+    <group
+        android:id="@+id/second"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_menu_rate"
+            android:title="@string/rate_this_app" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/share" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/settings" />
+    </group>
+</menu>

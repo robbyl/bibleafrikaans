@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="typeFaces">
+        <item>Default</item>
+        <item>Arvo</item>
+        <item>Exo</item>
+        <item>Lato</item>
+        <item>Lora</item>
+    </string-array>
+
+    <string-array name="default_color_choice_values" translatable="false">
+        <item>#ffffff</item>
+        <item>#ff8a80</item>
+        <item>#ffd180</item>
+        <item>#FDFC9D</item>
+
+        <item>#ccff90</item>
+        <item>#a7ffeb</item>
+        <item>#80d8ff</item>
+        <item>#cfd8dc</item>
+    </string-array>
+</resources>

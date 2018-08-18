@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tz.co.wadau.biblekingjamesversion.VersesSearchResultsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/verse_highlights_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/highlighted_verses"
+        app:titleTextColor="@android:color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/verse_highlights_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" />
+
+        <LinearLayout
+            android:id="@+id/no_highlighted_verses_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/no_highlighted_verses_icon"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:srcCompat="@drawable/ic_no_highlighted_verses" />
+
+            <TextView
+                android:id="@+id/empty_bookmarks_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_highlighted_verses"
+                android:gravity="center"
+                android:textColor="@color/textColorNoNotes"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/empty_bookmarks_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/long_click_on_a_verse_to_highlight"
+                android:textColor="@color/textColorNoNotes"
+                android:textSize="16sp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

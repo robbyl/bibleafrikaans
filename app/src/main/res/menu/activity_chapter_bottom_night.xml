@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_orientation"
+        android:icon="@drawable/ic_menu_screen_rotation_night"
+        android:title="@string/change_orientation"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_change_theme"
+        android:icon="@drawable/ic_menu_day_mode"
+        android:title="@string/day_light_mode"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_auto_scroll"
+        android:icon="@drawable/ic_menu_auto_scroll_night"
+        android:title="@string/auto_scroll"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_change_font_size"
+        android:icon="@drawable/ic_menu_change_text_size_night"
+        android:title="@string/change_text_size"
+        app:showAsAction="always" />
+</menu>

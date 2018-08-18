@@ -1,0 +1,56 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="mWindowBackground">@color/colorWhite</item>
+        <item name="bookIconTintColor">@color/colorIconTintColorDay</item>
+        <item name="colorVerseEmptyState">@color/colorVerseEmptyStateLight</item>
+        <item name="colorChapterSelectedBg">@color/colorListLighter</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@android:color/white</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_back</item>
+    </style>
+
+    <style name="NightModeTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="mWindowBackground">@color/colorDarkWindow</item>
+        <item name="bookIconTintColor">@color/colorIconTintColorNight</item>
+        <item name="colorVerseEmptyState">@color/colorVerseEmptyStateDark</item>
+        <item name="colorChapterSelectedBg">@color/colorListLightDarker</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@android:color/white</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_back</item>
+    </style>
+
+    <style name="SettingsTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    </style>
+
+    <style name="LightBlueTheme" parent="AppTheme">
+        <item name="android:colorPrimary" tools:targetApi="lollipop">@color/colorPrimaryLightBlue</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/colorPrimaryDarkBlue</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

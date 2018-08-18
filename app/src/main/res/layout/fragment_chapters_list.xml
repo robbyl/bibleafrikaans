@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/tab_layout"
+    android:background="?android:attr/windowBackground"
+    android:orientation="vertical"
+    tools:context="tz.co.wadau.biblekingjamesversion.fragment.ChaptersListFragment">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/chapters_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?mWindowBackground"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="1dp"
+        app:contentPaddingBottom="16dp"
+        app:contentPaddingLeft="?listPreferredItemPaddingLeft"
+        app:contentPaddingRight="?listPreferredItemPaddingRight"
+        app:contentPaddingTop="16dp">
+
+        <TextView
+            android:id="@+id/book_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/book_title"
+            android:textAllCaps="true"
+            android:textSize="16sp" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chapters_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:scrollbars="none" />
+</LinearLayout>

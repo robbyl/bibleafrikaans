@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingEnd="?listPreferredItemPaddingRight"
+    android:paddingStart="?listPreferredItemPaddingLeft"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/verse_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:paddingEnd="8dp"
+        android:text="1"
+        android:textColor="@color/colorPrimary"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/verse_text"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/verse_number"
+        android:clickable="true"
+        android:text="Cras mi justo, tristique et egestas et, malesuada a neque. Maecenas et purus efficitur, luctus dolor eu, gravida nibh. Praesent sagittis semper sollicitudin. Pellentesque posuere elit eget magna ultricies, eget volutpat leo lacinia. Curabitur erat diam, faucibus et tortor vel, ornare tempus ante. Vestibulum consectetur vel nunc eget luctus. Phasellus faucibus turpis vel ipsum aliquet, ac consectetur libero lobortis."
+        android:textColor="?android:textColorSecondary"
+        android:textSize="18sp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/verse_bookmark_icon"
+        android:layout_width="18dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"/>
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search_verse"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search_verses"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"  />
+
+    <item
+        android:id="@+id/menu_orientation"
+        android:icon="@drawable/ic_menu_screen_rotation_day"
+        android:title="@string/change_orientation"
+        app:showAsAction="ifRoom" />
+    <!--<item-->
+        <!--android:id="@+id/menu_change_theme"-->
+        <!--android:icon="@drawable/ic_menu_night_mode"-->
+        <!--android:title="@string/night_mode"-->
+        <!--app:showAsAction="ifRoom" />-->
+    <item
+        android:id="@+id/menu_auto_scroll"
+        android:icon="@drawable/ic_menu_auto_scroll_day"
+        android:title="@string/auto_scroll"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_change_font_size"
+        android:icon="@drawable/ic_menu_change_text_size"
+        android:title="@string/change_text_size"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="tz.co.wadau.biblekingjamesversion">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.BibleActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".VersesSearchResultsActivity" />
+        </activity>
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.ChapterActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".VersesSearchResultsActivity" />
+        </activity>
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.SettingsActivity"
+            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity" />
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.NotesActivity"
+            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity"
+            android:theme="@style/LightBlueTheme" />
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.AddNoteActivity"
+            android:parentActivityName="tz.co.wadau.biblekingjamesversion.NotesActivity"
+            android:theme="@style/LightBlueTheme" />
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.BookmarksActivity"
+            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity" />
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.VersesSearchResultsActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
+        <receiver android:name="tz.co.wadau.biblekingjamesversion.alarm.AlarmReceiver">
+            <intent-filter>
+                <action android:name="tz.co.wadau.biblekingjamesversion.DISPLAY_NOTIFICATION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="tz.co.wadau.biblekingjamesversion.alarm.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="tz.co.wadau.biblekingjamesversion.TodayVerseActivity"
+            android:parentActivityName="tz.co.wadau.biblekingjamesversion.BibleActivity" />
+
+        <activity android:name=".VerseSearchActivity"
+            android:parentActivityName=".BibleActivity"/>
+
+        <activity android:name=".VerseHighlightsActivity"
+            android:parentActivityName=".BibleActivity"/>
+
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".SettingsActivity" />
+    </application>
+
+</manifest>

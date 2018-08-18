@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0288d1</color>
+    <color name="colorPrimaryDark">#0277bd</color>
+    <color name="colorPrimaryVerses">#0294e3</color>
+    <color name="colorPrimaryLightBlue">#03A9F4</color>
+    <color name="colorPrimaryDarkBlue">#0288D1</color>
+
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorAccentSecondary">#FFC107</color>
+    <!--<color name="colorAccentSettings">#FFAB00</color>-->
+    <color name="colorListLighter">#dfe4dc</color>
+    <color name="colorListLightDarker">#2DFFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDarkWindow">#3C3C3C</color>
+    <color name="colorIconTintColorDay">#B3C0AC</color>
+    <color name="colorIconTintColorNight">#808080</color>
+    <color name="colorVerseEmptyStateLight">#64000000</color>
+    <color name="colorVerseEmptyStateDark">#64FFFFFF</color>
+    <color name="colorNotePadBg">#FDFC9D</color>
+
+    <color name="textColorNoNotes">#4C000000</color>
+    <color name="colorSelectedNotes">#460288D1</color>
+    <color name="colorLightRipple">#8EFFFFFF</color>
+    <color name="colorWindowBackground">#303030</color>
+
+    <color name="colorSelectedVersesDayTheme">#6600BFA5</color>
+    <color name="colorVerseSearchQuery">#fcf969</color>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_notes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tz.co.wadau.biblekingjamesversion.NotesActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/notes_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryLightBlue"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/notes"
+        app:titleTextColor="@android:color/white" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/notes_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/notes_list_padding_horizontal"
+                android:paddingRight="@dimen/notes_list_padding_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="8dp" />
+
+            <LinearLayout
+                android:id="@+id/empty_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/empty_notes_icon"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:srcCompat="@drawable/ic_no_notes" />
+
+                <TextView
+                    android:id="@+id/empty_notes_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/no_notes"
+                    android:textColor="@color/textColorNoNotes"
+                    android:textSize="16sp" />
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/tap_on_calendar_to_add_a_new_note"-->
+                <!--android:textColor="@color/textColorNoNotes"-->
+                <!--android:textSize="18sp" />-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="addNewNote"
+            app:elevation="6dp"
+            app:rippleColor="@color/colorLightRipple"
+            app:srcCompat="@drawable/ic_action_add_note" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</LinearLayout>

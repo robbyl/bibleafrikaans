@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/verse_search_results_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:gravity="center_vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/verse_result_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin_search"
+        android:layout_marginRight="@dimen/activity_horizontal_margin_search"
+        android:layout_marginTop="1dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/verse_search_results_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mwanzo 3:6"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            <TextView
+                android:id="@+id/verse_search_results_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/verse_search_results_header"
+                android:text="Feb 12, 2017 14:22"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

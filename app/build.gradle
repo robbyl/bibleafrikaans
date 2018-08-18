@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "tz.co.wadau.biblekingjamesversion"
+        minSdkVersion 18
+        targetSdkVersion 27
+        versionCode 6
+        versionName "1.2.3"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //    compile files('libs/gson-2.4.jar')
+    //    compile 'com.android.support:preference-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:palette-v7:27.1.1'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation 'com.android.support:preference-v14:27.1.1'
+
+    implementation 'com.google.firebase:firebase-core:10.2.6'
+    implementation 'com.google.firebase:firebase-ads:10.2.6'
+
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation 'com.google.code.gson:gson:2.7'
+
+    implementation 'com.google.firebase:firebase-core:10.2.6'
+    implementation 'com.google.firebase:firebase-ads:10.2.6'
+
+    implementation 'com.facebook.android:audience-network-sdk:4.26.0'
+//    compile 'com.google.ads.mediation:facebook:4.26.0.0'
+
+
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    testImplementation 'junit:junit:4.12'
+}
+apply plugin: 'com.google.gms.google-services'

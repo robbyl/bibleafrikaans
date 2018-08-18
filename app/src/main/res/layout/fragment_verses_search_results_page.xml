@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tz.co.wadau.biblekingjamesversion.fragment.VersesSearchResultsPageFragment">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/search_results_textview"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_weight="1"
+          android:paddingBottom="16dp"
+          android:paddingLeft="@dimen/activity_horizontal_margin"
+          android:paddingRight="@dimen/activity_horizontal_margin"
+          android:paddingTop="16dp"
+          android:text="Search results for" />
+
+      <TextView
+          android:id="@+id/search_result_total"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:paddingRight="16dp"
+          android:paddingTop="16dp"
+          android:paddingBottom="16dp"
+          android:paddingLeft="8dp"
+          android:text="@string/total" />
+   </LinearLayout>
+
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/verse_results_recyclerview"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:clipToPadding="false"
+       android:paddingBottom="4dp"
+       android:scrollbars="vertical" />
+
+</LinearLayout>

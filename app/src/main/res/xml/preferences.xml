@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/reading">
+        <tz.co.wadau.biblekingjamesversion.customviews.SeekBarPreferences
+            android:key="prefs_text_size"
+            android:layout="@layout/seek_bar_preference"
+            app:defaultValue="4"
+            app:max="16"
+            app:title="@string/text_size" />
+
+        <tz.co.wadau.biblekingjamesversion.customviews.SeekBarPreferences
+            android:key="prefs_auto_scroll_speed"
+            android:layout="@layout/seek_bar_preference"
+            app:defaultValue="0"
+            app:max="8"
+            app:title="@string/auto_scroll_speed" />
+
+        <ListPreference
+            android:defaultValue="Default"
+            android:entries="@array/typeFaces"
+            android:entryValues="@array/typeFaces"
+            android:key="prefs_typeface"
+            android:negativeButtonText="@string/cancel"
+            android:title="@string/font_type" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="prefs_stay_awake"
+            android:summary="@string/prevent_screen_turn_off_on_reading"
+            android:title="@string/stay_awake" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="prefs_night_mode"
+            android:summary="@string/chage_to_black_theme_on_reading"
+            android:title="@string/night_mode" />
+
+        <Preference
+            android:key="prefs_clear_all_highlights"
+            android:persistent="false"
+            android:summary="@string/remove_all_verse_highlights"
+            android:title="@string/clear_highlights" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="prefs_daily_verses"
+            android:summary="@string/daily_verses_pref"
+            android:title="@string/daily_verses" />
+
+        <tz.co.wadau.biblekingjamesversion.customviews.TimePreference
+            android:defaultValue="06:00"
+            android:dependency="prefs_daily_verses"
+            android:key="prefs_verse_notification_time"
+            android:summary="06:00"
+            android:title="@string/verse_notification_time" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/general">
+        <Preference
+            android:key="prefs_about"
+            android:persistent="false"
+            android:title="@string/about">
+
+            <intent
+                android:targetClass="tz.co.wadau.biblekingjamesversion.AboutActivity"
+                android:targetPackage="tz.co.wadau.biblekingjamesversion" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>
