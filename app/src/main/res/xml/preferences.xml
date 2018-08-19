@@ -62,8 +62,8 @@
             android:title="@string/about">
 
             <intent
-                android:targetClass="tz.co.wadau.biblekingjamesversion.AboutActivity"
-                android:targetPackage="tz.co.wadau.biblekingjamesversion" />
+                android:targetClass="tz.co.wadau.bibleafrikaans.AboutActivity"
+                android:targetPackage="tz.co.wadau.bibleafrikaans" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

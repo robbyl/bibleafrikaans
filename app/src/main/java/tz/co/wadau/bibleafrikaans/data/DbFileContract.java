@@ -13,14 +13,14 @@ class DbFileContract {
     }
 
     public static final class ChapterEntry implements BaseColumns {
-        public static final String TABLE_NAME = "t_kjv";
+        public static final String TABLE_NAME = "t_sw";
 
         public static final String COLUMN_CHAPTER_B = "b";
         public static final String COLUMN_CHAPTER_C = "c";
     }
 
     public static final class VerseEntry implements BaseColumns {
-        public static final String TABLE_NAME = "t_kjv";
+        public static final String TABLE_NAME = "t_sw";
 
         public static final String COLUMN_VERSE_ID = "id";
         public static final String COLUMN_VERSE_B = "b";

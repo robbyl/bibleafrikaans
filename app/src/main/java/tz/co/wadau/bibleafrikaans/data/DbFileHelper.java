@@ -34,17 +34,19 @@ public class DbFileHelper extends SQLiteOpenHelper {
     public static final String PREFS_KEY_DB_VER = "prefs_db_version";
 
     //Database name
-    private static final String DATABASE_NAME = "bible_kjv.db";
+    private static final String DATABASE_NAME = "bible_afrikaans.db";
     //destination path (location) of database on device
-    private static String DATABASE_PATH = "/data/data/tz.co.wadau.bibleafrikaans/databases/";
+    private static String DATABASE_PATH;
+
     //Database version
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
     private SQLiteDatabase mDataBase;
     private final Context mContext;
 
     public DbFileHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.mContext = context;
+        DATABASE_PATH = context.getDatabasePath(DATABASE_NAME).toString();
     }
 
     @Override
@@ -93,16 +95,14 @@ public class DbFileHelper extends SQLiteOpenHelper {
     public void openDataBase() throws SQLException {
 
         //Open the database
-        String myPath = DATABASE_PATH + DATABASE_NAME;
-        mDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        mDataBase = SQLiteDatabase.openDatabase(DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
 
     }
 
     public boolean isDbPresent() {
         SQLiteDatabase mDataBase = null;
-        String dbFilePath = DATABASE_PATH + DATABASE_NAME;
         try {
-            mDataBase = SQLiteDatabase.openDatabase(dbFilePath, null, SQLiteDatabase.OPEN_READONLY);
+            mDataBase = SQLiteDatabase.openDatabase(DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLException e) {
             //Database is not present yet.
         }
@@ -119,10 +119,9 @@ public class DbFileHelper extends SQLiteOpenHelper {
         InputStream myInput = mContext.getAssets().open(DATABASE_NAME);
 
         // Path to the just created empty db
-        String outFileName = DATABASE_PATH + DATABASE_NAME;
 
         //Open the empty db as the output stream
-        OutputStream myOutput = new FileOutputStream(outFileName);
+        OutputStream myOutput = new FileOutputStream(DATABASE_PATH);
 
         //transfer bytes from the inputfile to the outputfile
         byte[] buffer = new byte[1024];
