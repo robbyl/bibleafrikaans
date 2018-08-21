@@ -5,8 +5,8 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="books">Books</string>
     <string name="chapter">Chapter</string>
-    <string name="old_statement">Old Testament</string>
-    <string name="new_statement">New Testament</string>
+    <string name="old_statement">DIE OU TESTAMENT</string>
+    <string name="new_statement">DIE NUWE TESTAMENT</string>
     <string name="chooser_title">Share bile kjv via</string>
     <string name="verses">Verses</string>
     <string name="search_hint">Search book&#8230;</string>
@@ -61,7 +61,7 @@
 
 
     <!-- Default title for color picker dialog [CHAR LIMIT=30] -->
-    <string name="color_picker_default_title">Choose colr</string>
+    <string name="color_picker_default_title">Choose color</string>
     <!-- Content description for a color square. -->
     <string name="color_swatch_description" translatable="false">Color <xliff:g example="14" id="color_index">%1$d</xliff:g></string>
     <!-- Content description for a selected color square. -->

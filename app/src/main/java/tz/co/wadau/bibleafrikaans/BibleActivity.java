@@ -99,9 +99,8 @@ public class BibleActivity extends AppCompatActivity
     private InterstitialAd mInterstitialAd;
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private CoordinatorLayout coordinatorLayout;
-    private final String ADMOB_APP_ID = "ca-app-pub-6949253770172194~1404505662";
-    private final String ADMOB_ADD_UNIT = "ca-app-pub-6949253770172194/4357972063";
-    private int songTitleClick;
+    private final String ADMOB_APP_ID = "ca-app-pub-6949253770172194~2127108072";
+    private int songTitleClick, CLICKS_TILL_AD_SHOW = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,21 +153,7 @@ public class BibleActivity extends AppCompatActivity
         openChapterFromBookmark();
         setupDailyVersesNotification(this);
 
-        //Initialize adMob Ads
-        MobileAds.initialize(this, ADMOB_APP_ID);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(ADMOB_ADD_UNIT);
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-
-                Snackbar.make(coordinatorLayout, R.string.tap_to_exit, Snackbar.LENGTH_LONG).show();
-            }
-        });
-
+        setupInterstitialAd();
         requestNewInterstitial();
     }
 
@@ -269,13 +254,15 @@ public class BibleActivity extends AppCompatActivity
             final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 
-            if (mInterstitialAd.isLoaded() && songTitleClick >= 4) {
+            if (mInterstitialAd.isLoaded() && ((songTitleClick % CLICKS_TILL_AD_SHOW) == 0)) {
                 mInterstitialAd.show();
 
                 mInterstitialAd.setAdListener(new AdListener() {
                     @Override
                     public void onAdClosed() {
                         super.onAdClosed();
+                        if (songTitleClick == CLICKS_TILL_AD_SHOW && songTitleClick <= CLICKS_TILL_AD_SHOW)
+                            requestNewInterstitial();
                         transaction.replace(R.id.verse_container, fragment).commitAllowingStateLoss();
                     }
                 });
@@ -290,13 +277,15 @@ public class BibleActivity extends AppCompatActivity
             versesIntent.putExtra(ChapterActivity.CHAPTER_NUMBER, chapter.getNumber());
             versesIntent.putExtra(ChapterActivity.CHAPTER_TOTAL_NUMBER, chapter.getTotalChapters());
 
-            if (mInterstitialAd.isLoaded() && songTitleClick >= 4) {
+            if (mInterstitialAd.isLoaded() && ((songTitleClick % CLICKS_TILL_AD_SHOW) == 0)) {
                 mInterstitialAd.show();
 
                 mInterstitialAd.setAdListener(new AdListener() {
                     @Override
                     public void onAdClosed() {
                         super.onAdClosed();
+                        if (songTitleClick == CLICKS_TILL_AD_SHOW && songTitleClick <= CLICKS_TILL_AD_SHOW)
+                            requestNewInterstitial();
                         startActivity(versesIntent);
                     }
                 });
@@ -588,10 +577,27 @@ public class BibleActivity extends AppCompatActivity
         }
     }
 
+    private void setupInterstitialAd() {
+        MobileAds.initialize(this, ADMOB_APP_ID);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-6949253770172194/6174164292");
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+
+                Snackbar.make(coordinatorLayout, R.string.tap_to_exit, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .addTestDevice("50941AF57FD6434ECCFA81A57FF7D313")
+                .addTestDevice("28D01E8B9AD20EEC0A73479ED41140E9")
                 .build();
 
         mInterstitialAd.loadAd(adRequest);

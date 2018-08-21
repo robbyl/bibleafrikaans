@@ -70,7 +70,7 @@ public class Utils {
     }
 
     public static void startShareActivity(Context context) {
-        String shareText = "Download 'Bible King James Version' at  " +
+        String shareText = "Download 'Bible Afrikaas' at  " +
                 "https://play.google.com/store/apps/details?id=tz.co.wadau.bibleafrikaans";
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

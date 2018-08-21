@@ -102,7 +102,7 @@ public class TodayVerseActivity extends AppCompatActivity {
     }
 
     public void showNativeAd() {
-        mNativeAd = new NativeAd(this, "183013698941726_183014208941675");
+        mNativeAd = new NativeAd(this, "1162476090570459_1162477160570352");
         mNativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
