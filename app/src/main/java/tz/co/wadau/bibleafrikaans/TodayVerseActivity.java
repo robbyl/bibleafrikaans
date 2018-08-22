@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,17 +106,17 @@ public class TodayVerseActivity extends AppCompatActivity {
         mNativeAd = new NativeAd(this, "1162476090570459_1162477160570352");
         mNativeAd.setAdListener(new NativeAdListener() {
             @Override
-            public void onError(Ad ad, AdError adError) {
+            public void onMediaDownloaded(Ad ad) {
 
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                Log.d(TAG, adError.getErrorMessage());
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-
-            }
-
-            @Override
-            public void onMediaDownloaded(Ad ad) {
 
                 // Set the Native Ad attributes
                 NativeAdViewAttributes viewAttributes = new NativeAdViewAttributes()
@@ -150,9 +151,10 @@ public class TodayVerseActivity extends AppCompatActivity {
         });
 
         //Initialize a request to load ad
-        AdSettings.addTestDevice("46efa40bb85d7f7e06c25462f3e8ccbe");
-        AdSettings.addTestDevice("96840c62b29003bd98256d79d5b40e18");
+        AdSettings.addTestDevice("2ca460b475e01e764dfc2aeee5febde2");
+        AdSettings.addTestDevice("4514a75e-cd6c-438e-82a0-9b3a9ae0c1ea");
         AdSettings.addTestDevice("a3392fabec7b0521cef85148f4b8c39f"); //My Nexus 5
+        AdSettings.addTestDevice("dea1edc7-4a56-47fc-8c48-ba0c8fdffa5a"); //My nexus 5x
         mNativeAd.loadAd();
     }
 }
