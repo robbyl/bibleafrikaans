@@ -70,7 +70,7 @@
 
         <receiver android:name="tz.co.wadau.bibleafrikaans.alarm.AlarmReceiver">
             <intent-filter>
-                <action android:name="tz.co.wadau.biblekingjamesversion.DISPLAY_NOTIFICATION" />
+                <action android:name="tz.co.wadau.bibleafrikaans.DISPLAY_NOTIFICATION" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
