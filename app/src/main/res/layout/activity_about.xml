@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="tz.co.wadau.bibleafrikaans.AboutActivity">
+    tools:context="tz.co.wadau.bibleinafrikaans.AboutActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_about"

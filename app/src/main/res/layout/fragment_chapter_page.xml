@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="?mWindowBackground"
     android:orientation="vertical"
-    tools:context="tz.co.wadau.bibleafrikaans.fragment.ChapterPageFragment">
+    tools:context="tz.co.wadau.bibleinafrikaans.fragment.ChapterPageFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/verses_recycler_view"

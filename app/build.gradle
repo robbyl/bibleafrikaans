@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
-        applicationId "tz.co.wadau.bibleafrikaans"
+        applicationId "tz.co.wadau.bibleinafrikaans"
         minSdkVersion 18
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 2
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,20 +27,20 @@ dependencies {
     })
     //    compile files('libs/gson-2.4.jar')
     //    compile 'com.android.support:preference-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:palette-v7:27.1.1'
-    implementation 'com.android.support:support-vector-drawable:27.1.1'
-    implementation 'com.android.support:preference-v14:27.1.1'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:palette-v7:28.0.0'
+    implementation 'com.android.support:support-vector-drawable:28.0.0'
+    implementation 'com.android.support:preference-v14:28.0.0'
 
-    implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation 'com.google.firebase:firebase-ads:15.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-ads:17.2.1'
 
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
     implementation 'com.google.code.gson:gson:2.7'
 
-    implementation 'com.facebook.android:audience-network-sdk:4.99.1'
+    implementation 'com.facebook.android:audience-network-sdk:5.1.0'
 //    compile 'com.google.ads.mediation:facebook:4.26.0.0'
 
 

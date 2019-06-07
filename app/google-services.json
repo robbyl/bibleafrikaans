@@ -25,15 +25,43 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293373979095-h3ncnhvfovk54q2m0rogsi1egblqnui9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-6949253770172194~2127108072"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293373979095:android:9715bddc5207b331",
+        "android_client_info": {
+          "package_name": "tz.co.wadau.bibleinafrikaans"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293373979095-h3ncnhvfovk54q2m0rogsi1egblqnui9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcD_Sz7NrRMi7MAvZ-7fNi3bUX-JaonqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293373979095-h3ncnhvfovk54q2m0rogsi1egblqnui9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -64,20 +92,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "293373979095-h3ncnhvfovk54q2m0rogsi1egblqnui9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       },
       "admob_app_id": "ca-app-pub-6949253770172194~1404505662"
