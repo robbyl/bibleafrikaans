@@ -3,14 +3,12 @@ package tz.co.wadau.bibleinafrikaans;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -39,8 +37,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import tz.co.wadau.bibleinafrikaans.adapter.BooksPagerAdapter;
@@ -48,7 +44,6 @@ import tz.co.wadau.bibleinafrikaans.adapter.VersesAdapter;
 import tz.co.wadau.bibleinafrikaans.alarm.AlarmNotification;
 import tz.co.wadau.bibleinafrikaans.data.DataHelper;
 import tz.co.wadau.bibleinafrikaans.data.DbFileHelper;
-import tz.co.wadau.bibleinafrikaans.data.DbHelper;
 import tz.co.wadau.bibleinafrikaans.fragment.BaseExampleFragment;
 import tz.co.wadau.bibleinafrikaans.fragment.ChaptersListFragment;
 import tz.co.wadau.bibleinafrikaans.fragment.OldTestamentFragment;
@@ -62,7 +57,6 @@ import tz.co.wadau.bibleinafrikaans.model.Verse;
 import tz.co.wadau.bibleinafrikaans.utils.Utils;
 
 import static tz.co.wadau.bibleinafrikaans.R.id.vpPager;
-import static tz.co.wadau.bibleinafrikaans.data.DbFileHelper.PREFS_KEY_DB_VER;
 import static tz.co.wadau.bibleinafrikaans.fragment.NewTestamentFragment.newStatementAdapter;
 import static tz.co.wadau.bibleinafrikaans.fragment.NewTestamentFragment.newStatementBooks;
 import static tz.co.wadau.bibleinafrikaans.fragment.NewTestamentFragment.tempNewStmtBooks;
@@ -125,12 +119,10 @@ public class BibleActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText(R.string.new_statement));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        booksPagerAdapter = new BooksPagerAdapter(getResources(), getSupportFragmentManager());
-        viewPager.setAdapter(booksPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         initializeLayoutPane();
-        initializeBibleDb();
+        new LoadBooks().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         setupFloatingSearch();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -458,31 +450,6 @@ public class BibleActivity extends AppCompatActivity
         });
     }
 
-    private void initializeBibleDb() {
-        DbFileHelper db = new DbFileHelper(this);
-        DbHelper dbHelper = new DbHelper(this);
-
-        if (db.isDbPresent()) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-            int dbVersion = prefs.getInt(PREFS_KEY_DB_VER, 1);
-            if (db.getVersion() != dbVersion) {
-                File dbFile = mContext.getDatabasePath(db.getName());
-                if (!dbFile.delete()) {
-                    Log.w(TAG, "Unable to update database");
-                }
-            }
-        }
-
-        try {
-            db.createDatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        SQLiteDatabase mDb = dbHelper.getReadableDatabase();
-        mDb.close();
-    }
-
     private void swapCurrTabBooks(List<Book> results) {
         currTab = viewPager.getCurrentItem();
 
@@ -601,5 +568,27 @@ public class BibleActivity extends AppCompatActivity
                 .build();
 
         mInterstitialAd.loadAd(adRequest);
+    }
+
+    public class LoadBooks extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            DbFileHelper dbFileHelper = new DbFileHelper(mContext);
+            dbFileHelper.initializeDb();
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            booksPagerAdapter = new BooksPagerAdapter(getResources(), getSupportFragmentManager());
+            viewPager.setAdapter(booksPagerAdapter);
+        }
     }
 }

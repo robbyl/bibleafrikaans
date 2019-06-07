@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,8 +24,8 @@ import tz.co.wadau.bibleinafrikaans.data.DbContract.BookmarkEntry;
 import tz.co.wadau.bibleinafrikaans.data.DbContract.VerseHighlightEntry;
 import tz.co.wadau.bibleinafrikaans.data.DbFileContract.BookEntry;
 import tz.co.wadau.bibleinafrikaans.data.DbFileContract.ChapterEntry;
-import tz.co.wadau.bibleinafrikaans.data.DbFileContract.VerseEntry;
 import tz.co.wadau.bibleinafrikaans.data.DbFileContract.SpecialVerseEntry;
+import tz.co.wadau.bibleinafrikaans.data.DbFileContract.VerseEntry;
 import tz.co.wadau.bibleinafrikaans.model.Book;
 import tz.co.wadau.bibleinafrikaans.model.Chapter;
 import tz.co.wadau.bibleinafrikaans.model.SpecialVerse;
@@ -39,7 +41,7 @@ public class DbFileHelper extends SQLiteOpenHelper {
     private static String DATABASE_PATH;
 
     //Database version
-    public static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase mDataBase;
     private final Context mContext;
 
@@ -68,27 +70,23 @@ public class DbFileHelper extends SQLiteOpenHelper {
         super.close();
     }
 
-    public void createDatabase() throws IOException {
+    public void createDatabase() {
         boolean isDbPresent = isDbPresent();
 
         if (isDbPresent) {
-            //Do nothing database is already exist
-            Log.d(TAG, "EN bible database is present no need to create one");
+            //Do nothing database is already present
+            Log.d(TAG, "Database is present no need to create one");
         } else {
-            //COPY DATABASE
-            //This creates empty database in default path which it will later be replaced by the copied one.
-            this.getReadableDatabase();
             try {
                 copyDatabase();
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putInt(PREFS_KEY_DB_VER, DATABASE_VERSION);
-                editor.commit();
-            } catch (SQLException e) {
-                throw new Error("Error copying database");
+                editor.apply();
+                Log.d(TAG, DATABASE_NAME + " database copied from assets");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            Log.d(TAG, "EN bible database copied from assets");
         }
     }
 
@@ -96,29 +94,25 @@ public class DbFileHelper extends SQLiteOpenHelper {
 
         //Open the database
         mDataBase = SQLiteDatabase.openDatabase(DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
-
     }
 
     public boolean isDbPresent() {
         SQLiteDatabase mDataBase = null;
         try {
             mDataBase = SQLiteDatabase.openDatabase(DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
+            close();
         } catch (SQLException e) {
             //Database is not present yet.
-        }
-
-        if (mDataBase != null) {
-            mDataBase.close();
         }
 
         return mDataBase != null;
     }
 
     private void copyDatabase() throws IOException {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P)
+            getReadableDatabase();
         //Open local db (the assets folder) as the input stream
         InputStream myInput = mContext.getAssets().open(DATABASE_NAME);
-
-        // Path to the just created empty db
 
         //Open the empty db as the output stream
         OutputStream myOutput = new FileOutputStream(DATABASE_PATH);
@@ -134,6 +128,34 @@ public class DbFileHelper extends SQLiteOpenHelper {
         myOutput.flush();
         myOutput.close();
         myInput.close();
+    }
+
+    public void initializeDb() {
+
+        // INITIALIZING TENZI DB
+//        DbFileHelper db = new DbFileHelper(mContext);
+
+        if (isDbPresent()) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            int dbVersion = prefs.getInt(PREFS_KEY_DB_VER, 1);
+
+            if (getVersion() != dbVersion) {
+                File dbFile = mContext.getDatabasePath(getName());
+                if (!dbFile.delete()) {
+                    Log.w(TAG, "Unable to update database");
+                } else {
+                    Log.d(TAG, "Current db version " + dbVersion + " Deleted");
+                }
+            }
+        }
+
+        createDatabase();
+        close();
+
+        //INITIALIZING TENZI METADATA DB
+        DbHelper dbHelper = new DbHelper(mContext);
+        dbHelper.getReadableDatabase();
+        dbHelper.close();
     }
 
     public Book getBook(long id) {
