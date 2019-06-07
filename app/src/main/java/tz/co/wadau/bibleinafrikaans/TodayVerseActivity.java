@@ -42,10 +42,10 @@ public class TodayVerseActivity extends AppCompatActivity {
         Utils.setupTheme(this);
         setContentView(R.layout.activity_today_verse);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.today_verse_toolbar);
-        TextView dailyVerseTextView = (TextView) findViewById(R.id.daily_verse_text);
-        TextView dailyVerseNoView = (TextView) findViewById(R.id.daily_verse_no);
-        nativeAdContainer = (CardView) findViewById(R.id.native_ad_container);
+        Toolbar toolbar = findViewById(R.id.today_verse_toolbar);
+        TextView dailyVerseTextView = findViewById(R.id.daily_verse_text);
+        TextView dailyVerseNoView =  findViewById(R.id.daily_verse_no);
+        nativeAdContainer =  findViewById(R.id.native_ad_container);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -103,7 +103,7 @@ public class TodayVerseActivity extends AppCompatActivity {
     }
 
     public void showNativeAd() {
-        mNativeAd = new NativeAd(this, "1162476090570459_1162477160570352");
+        mNativeAd = new NativeAd(this, "619312825220910_619314505220742");
         mNativeAd.setAdListener(new NativeAdListener() {
             @Override
             public void onMediaDownloaded(Ad ad) {
@@ -155,6 +155,7 @@ public class TodayVerseActivity extends AppCompatActivity {
         AdSettings.addTestDevice("4514a75e-cd6c-438e-82a0-9b3a9ae0c1ea");
         AdSettings.addTestDevice("a3392fabec7b0521cef85148f4b8c39f"); //My Nexus 5
         AdSettings.addTestDevice("dea1edc7-4a56-47fc-8c48-ba0c8fdffa5a"); //My nexus 5x
+        AdSettings.addTestDevice("059c1ddb-7eaa-496f-ae73-d2458825f2b0"); //My nexus 5x
         mNativeAd.loadAd();
     }
 }

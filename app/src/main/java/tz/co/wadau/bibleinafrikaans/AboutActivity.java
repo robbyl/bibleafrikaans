@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 import tz.co.wadau.bibleinafrikaans.utils.Utils;
@@ -19,12 +20,14 @@ public class AboutActivity extends AppCompatActivity {
         Utils.setupTheme(this);
         setContentView(R.layout.activity_about);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
-        TextView appVersion = (TextView) findViewById(R.id.app_version);
+        Toolbar toolbar =  findViewById(R.id.toolbar_about);
+        TextView appVersion = findViewById(R.id.app_version);
+        TextView privacyPolicy =  findViewById(R.id.privacy_policy);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        privacyPolicy.setMovementMethod(LinkMovementMethod.getInstance());
 
         PackageManager packageManager = getPackageManager();
         PackageInfo packageInfo = null;
