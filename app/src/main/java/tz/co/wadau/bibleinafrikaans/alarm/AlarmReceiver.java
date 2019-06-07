@@ -1,11 +1,13 @@
 package tz.co.wadau.bibleinafrikaans.alarm;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("tz.co.wadau.bibleinafrikaans.DISPLAY_NOTIFICATION")) {
 
             Log.d(TAG, "Broadcast received with action " + intent.getAction());
+            final String NOTIFICATION_CHANNEL_ID = "daily_verses";
 
             SpecialVerse todayVerse = getRandomDailyVerse(context);
 
@@ -55,22 +58,32 @@ public class AlarmReceiver extends BroadcastReceiver {
             stackBuilder.addParentStack(TodayVerseActivity.class);
             stackBuilder.addNextIntent(notificationIntent);
 
-            PendingIntent pendingIntent = stackBuilder.getPendingIntent(99882, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+            PendingIntent pendingIntent = stackBuilder.getPendingIntent(99881, PendingIntent.FLAG_CANCEL_CURRENT);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
             Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-            Notification notification = builder.setContentTitle(notificationTitle)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && notificationManager != null) {
+                NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, context.getString(R.string.daily_verse), NotificationManager.IMPORTANCE_HIGH);
+                notificationChannel.setDescription(context.getString(R.string.daily_verses_pref));
+                notificationChannel.enableLights(true);
+                notificationChannel.setLightColor(Color.RED);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+            builder.setContentTitle(notificationTitle)
                     .setContentText(notificationContent)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setTicker(notificationTitle)
                     .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                     .setSound(soundUri)
 //                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent).build();
+                    .setContentIntent(pendingIntent);
 
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(99882, notification);
+            Notification notification = builder.build();
+
+            if (notificationManager != null)
+                notificationManager.notify(99882, notification);
         }
 
     }
