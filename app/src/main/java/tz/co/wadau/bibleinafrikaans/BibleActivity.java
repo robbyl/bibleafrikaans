@@ -563,14 +563,13 @@ public class BibleActivity extends AppCompatActivity
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("50941AF57FD6434ECCFA81A57FF7D313")
-                .addTestDevice("28D01E8B9AD20EEC0A73479ED41140E9")
+                .addTestDevice("1057137F59AEDAEAE3D83342324D90AB")
                 .build();
 
         mInterstitialAd.loadAd(adRequest);
     }
 
-    public class LoadBooks extends AsyncTask<Void, Void, Void>{
+    public class LoadBooks extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
