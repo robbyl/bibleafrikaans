@@ -35,7 +35,7 @@ public class AlarmNotification {
             nextAlarm.set(Calendar.HOUR_OF_DAY, hour);
             nextAlarm.set(Calendar.MINUTE, minutes);
 
-            Intent notificationIntent = new Intent("tz.co.wadau.bibleafrikaans.DISPLAY_NOTIFICATION");
+            Intent notificationIntent = new Intent("tz.co.wadau.bibleinafrikaans.DISPLAY_NOTIFICATION");
             PendingIntent broadcast = PendingIntent.getBroadcast(context, 88889, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, nextAlarm.getTimeInMillis(), AlarmManager.INTERVAL_DAY, broadcast);
@@ -51,7 +51,7 @@ public class AlarmNotification {
 
     public boolean alarmUp(Context context) {
 
-        Intent notificationIntent = new Intent("tz.co.wadau.bibleafrikaans.DISPLAY_NOTIFICATION");
+        Intent notificationIntent = new Intent("tz.co.wadau.bibleinafrikaans.DISPLAY_NOTIFICATION");
         PendingIntent broadcast = PendingIntent.getBroadcast(context, 88889, notificationIntent, PendingIntent.FLAG_NO_CREATE);
         boolean isAlarmUp = (broadcast != null);
         Log.d(TAG, "Alarm is up? " + isAlarmUp);
@@ -59,7 +59,7 @@ public class AlarmNotification {
     }
 
     public void cancelAlarm(Context context) {
-        Intent notificationIntent = new Intent("tz.co.wadau.bibleafrikaans.DISPLAY_NOTIFICATION");
+        Intent notificationIntent = new Intent("tz.co.wadau.bibleinafrikaans.DISPLAY_NOTIFICATION");
         PendingIntent broadcast = PendingIntent.getBroadcast(context, 88889, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

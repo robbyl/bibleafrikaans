@@ -36,8 +36,8 @@ public class AddNoteActivity extends AppCompatActivity {
     private int selectedColor = Color.parseColor("#FDFC9D");
     private LinearLayout linearLayout;
     long noteId;
-    public static final String NOTE_DATE = "tz.co.wadau.bibleafrikaans.NOW";
-    public static final String NOTE_ID = "tz.co.wadau.bibleafrikaans.NOTE_ID";
+    public static final String NOTE_DATE = "tz.co.wadau.bibleinafrikaans.NOW";
+    public static final String NOTE_ID = "tz.co.wadau.bibleinafrikaans.NOTE_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

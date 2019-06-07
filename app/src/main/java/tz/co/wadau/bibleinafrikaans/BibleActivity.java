@@ -109,12 +109,12 @@ public class BibleActivity extends AppCompatActivity
         Utils.setupTheme(this);
         setContentView(R.layout.activity_bible);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        viewPager = (ViewPager) findViewById(vpPager);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        mSearchView = findViewById(R.id.floating_search_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        viewPager = findViewById(vpPager);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
         mContext = this;
         songTitleClick = 0;
 
@@ -163,11 +163,11 @@ public class BibleActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         // currently visible tab Fragment
         OnBackPressListener currentFragment = (OnBackPressListener) booksPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
-        CardView bookTitleView = (CardView) findViewById(R.id.chapters_list_title);
+        CardView bookTitleView = findViewById(R.id.chapters_list_title);
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             //Close navigation drawerLayout if it is open

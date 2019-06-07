@@ -41,11 +41,11 @@ public class ChapterActivity extends AppCompatActivity
         ActionMenuView.OnMenuItemClickListener {
 
     private static final String TAG = ChapterActivity.class.getSimpleName();
-    public static final String BOOK_NUMBER = "tz.co.wadau.bibleafrikaans.BOOK_NUMBER";
-    public static final String BOOK_NAME = "tz.co.wadau.bibleafrikaans.BOOK_NAME";
-    public static final String CHAPTER_NUMBER = "tz.co.wadau.bibleafrikaans.CHAPTER_NUMBER";
-    public static final String VERSE_NUMBER = "tz.co.wadau.bibleafrikaans.VERSE_NUMBER";
-    public static final String CHAPTER_TOTAL_NUMBER = "tz.co.wadau.bibleafrikaans.CHAPTER_TOTAL_NUMBER";
+    public static final String BOOK_NUMBER = "tz.co.wadau.bibleinafrikaans.BOOK_NUMBER";
+    public static final String BOOK_NAME = "tz.co.wadau.bibleinafrikaans.BOOK_NAME";
+    public static final String CHAPTER_NUMBER = "tz.co.wadau.bibleinafrikaans.CHAPTER_NUMBER";
+    public static final String VERSE_NUMBER = "tz.co.wadau.bibleinafrikaans.VERSE_NUMBER";
+    public static final String CHAPTER_TOTAL_NUMBER = "tz.co.wadau.bibleinafrikaans.CHAPTER_TOTAL_NUMBER";
     public static final int MIN_SCROLL_SPEED = 1;
     public static int scrollSpeed;
     private SharedPreferences sharedPreferences;

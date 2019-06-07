@@ -71,7 +71,7 @@ public class Utils {
 
     public static void startShareActivity(Context context) {
         String shareText = "Download 'Bible Afrikaas' at  " +
-                "https://play.google.com/store/apps/details?id=tz.co.wadau.bibleafrikaans";
+                "https://play.google.com/store/apps/details?id=tz.co.wadau.bibleinafrikaans";
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);

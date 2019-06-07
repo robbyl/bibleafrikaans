@@ -27,13 +27,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     final String TAG = AlarmReceiver.class.getSimpleName();
     public static final String KEY_PREFS_DAILY_VERSES_ID = "prefs_daily_verses_ids";
-    public static final String DAILY_VERSE_NO = "tz.co.wadau.bibleafrikaans.DAILY_VERSE_NO";
-    public static final String DAILY_VERSE_TEXT = "tz.co.wadau.bibleafrikaans.DAILY_VERSE_TEXT";
+    public static final String DAILY_VERSE_NO = "tz.co.wadau.bibleinafrikaans.DAILY_VERSE_NO";
+    public static final String DAILY_VERSE_TEXT = "tz.co.wadau.bibleinafrikaans.DAILY_VERSE_TEXT";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if (intent.getAction().equals("tz.co.wadau.bibleafrikaans.DISPLAY_NOTIFICATION")) {
+        if (intent.getAction().equals("tz.co.wadau.bibleinafrikaans.DISPLAY_NOTIFICATION")) {
 
             Log.d(TAG, "Broadcast received with action " + intent.getAction());
 
