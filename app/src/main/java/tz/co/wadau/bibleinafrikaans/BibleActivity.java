@@ -3,6 +3,8 @@ package tz.co.wadau.bibleinafrikaans;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,6 +35,13 @@ import com.facebook.ads.InterstitialAdListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 
 import java.util.List;
 
@@ -90,9 +99,10 @@ public class BibleActivity extends AppCompatActivity
     private long mBackPressed;
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private CoordinatorLayout coordinatorLayout;
-    private final String ADMOB_APP_ID = "ca-app-pub-6949253770172194~2746379503";
     private int songTitleClick, CLICKS_TILL_AD_SHOW = 4;
     public static boolean SHOW_AD_WHEN_LOADED;
+    public static final int UPDATE_REQUEST_CODE = 6;
+    AppUpdateManager appUpdateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +140,8 @@ public class BibleActivity extends AppCompatActivity
         SHOW_AD_WHEN_LOADED = true;
         AdManager.initialize(this);
         AdManager.createAd();
+
+        checkForAppUpdate();
     }
 
     public BibleActivity() {
@@ -580,4 +592,50 @@ public class BibleActivity extends AppCompatActivity
 
         }
     };
+
+    public void checkForAppUpdate() {
+        SharedPreferences preferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        int runTimes = preferences.getInt("RUN_TIMES", 0);
+
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+        appUpdateManager.registerListener(state -> {
+            switch (state.installStatus()) {
+                case InstallStatus.DOWNLOADING:
+                    long bytesDownloaded = state.bytesDownloaded();
+                    long totalBytesToDownload = state.totalBytesToDownload();
+                    // Implement progress bar.
+                    break;
+
+                case InstallStatus.DOWNLOADED:
+                    popupSnackbarForCompleteUpdate();
+                    break;
+            }
+        });
+
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+//                    && appUpdateInfo.clientVersionStalenessDays() != null
+//                    && appUpdateInfo.clientVersionStalenessDays() >= DAYS_FOR_FLEXIBLE_UPDATE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                    //Only check for app apdate if the app is run in multiple of 4
+                    && runTimes % 4 == 0) {
+
+                try {
+                    // Request the update.
+                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.IMMEDIATE, this, UPDATE_REQUEST_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void popupSnackbarForCompleteUpdate() {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.update_downloaded, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(R.string.restart, view -> appUpdateManager.completeUpdate());
+        snackbar.setActionTextColor(getResources().getColor(R.color.colorAccent));
+        snackbar.show();
+    }
 }
