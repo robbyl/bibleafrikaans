@@ -24,13 +24,13 @@
             android:negativeButtonText="@string/cancel"
             android:title="@string/font_type" />
 
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="prefs_stay_awake"
             android:summary="@string/prevent_screen_turn_off_on_reading"
             android:title="@string/stay_awake" />
 
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="prefs_night_mode"
             android:summary="@string/chage_to_black_theme_on_reading"
@@ -42,7 +42,7 @@
             android:summary="@string/remove_all_verse_highlights"
             android:title="@string/clear_highlights" />
 
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="prefs_daily_verses"
             android:summary="@string/daily_verses_pref"

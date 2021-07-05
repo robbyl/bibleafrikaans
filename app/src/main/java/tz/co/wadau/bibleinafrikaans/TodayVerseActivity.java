@@ -2,26 +2,25 @@ package tz.co.wadau.bibleinafrikaans;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSettings;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.facebook.ads.NativeAd;
-import com.facebook.ads.NativeAdListener;
-import com.facebook.ads.NativeAdView;
-import com.facebook.ads.NativeAdViewAttributes;
 
 import tz.co.wadau.bibleinafrikaans.utils.Utils;
 
@@ -32,9 +31,9 @@ public class TodayVerseActivity extends AppCompatActivity {
     private final String TAG = TodayVerseActivity.class.getSimpleName();
     private String dailyVerseNo;
     private String dailyVerseText;
-    private CardView nativeAdContainer;
     private NativeAd mNativeAd;
     private Context mContext;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class TodayVerseActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.today_verse_toolbar);
         TextView dailyVerseTextView = findViewById(R.id.daily_verse_text);
         TextView dailyVerseNoView =  findViewById(R.id.daily_verse_no);
-        nativeAdContainer =  findViewById(R.id.native_ad_container);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -57,7 +55,7 @@ public class TodayVerseActivity extends AppCompatActivity {
         dailyVerseNoView.setText(dailyVerseNo);
         mContext = this;
 
-        showNativeAd();
+        showBannerAd();
     }
 
     @Override
@@ -86,6 +84,14 @@ public class TodayVerseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adView != null) {
+            adView.destroy();
+        }
+    }
+
     public void shareTodayVerse() {
         String shareText = dailyVerseNo + "\n" + dailyVerseText;
         Intent shareIntent = new Intent();
@@ -102,60 +108,39 @@ public class TodayVerseActivity extends AppCompatActivity {
         }
     }
 
-    public void showNativeAd() {
-        mNativeAd = new NativeAd(this, "619312825220910_619314505220742");
-        mNativeAd.setAdListener(new NativeAdListener() {
-            @Override
-            public void onMediaDownloaded(Ad ad) {
+    private void showBannerAd() {
+        adView = new AdView(this, "619312825220910_1197922457359941", AdSize.BANNER_HEIGHT_50);
+        LinearLayout adContainer = findViewById(R.id.banner_container);
 
-            }
-
+        AdListener adListener = new AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
-                Log.d(TAG, adError.getErrorMessage());
+                // Ad error callback
+                Log.d(TAG, "Error loading ad " + adError.getErrorMessage());
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-
-                // Set the Native Ad attributes
-                NativeAdViewAttributes viewAttributes = new NativeAdViewAttributes()
-                        .setButtonColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
-                        .setButtonBorderColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark))
-                        .setButtonTextColor(Color.WHITE);
-
-                if (Utils.isBlackThemeEnabled(mContext)) {
-                    viewAttributes.setBackgroundColor(Color.parseColor("#424242"));
-                    viewAttributes.setTitleTextColor(Color.WHITE);
-                    viewAttributes.setDescriptionTextColor(Color.parseColor("#c7c7c7"));
-                } else {
-                    viewAttributes.setBackgroundColor(Color.WHITE);
+                // Ad loaded callback
+                Log.d(TAG, "Ad loaded ");
+                if(adView.getParent() != null){
+                    ((ViewGroup) adView.getParent()).removeView(adView);
                 }
-
-                // Render the Native Ad Template
-                View adView = NativeAdView.render(TodayVerseActivity.this, mNativeAd,
-                        NativeAdView.Type.HEIGHT_300, viewAttributes);
-                // Add the Native Ad View to your ad container
-                nativeAdContainer.addView(adView);
+                adContainer.addView(adView); //Show banner ad
             }
 
             @Override
             public void onAdClicked(Ad ad) {
-
+                // Ad clicked callback
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
-
+                // Ad impression logged callback
             }
-        });
+        };
 
-        //Initialize a request to load ad
-        AdSettings.addTestDevice("2ca460b475e01e764dfc2aeee5febde2");
-        AdSettings.addTestDevice("4514a75e-cd6c-438e-82a0-9b3a9ae0c1ea");
-        AdSettings.addTestDevice("a3392fabec7b0521cef85148f4b8c39f"); //My Nexus 5
-        AdSettings.addTestDevice("dea1edc7-4a56-47fc-8c48-ba0c8fdffa5a"); //My nexus 5x
-        AdSettings.addTestDevice("059c1ddb-7eaa-496f-ae73-d2458825f2b0"); //My nexus 5x
-        mNativeAd.loadAd();
+        AdSettings.addTestDevice("f073bf73-8753-40da-ad17-98920a6620b0");
+        adView.loadAd(adView.buildLoadAdConfig().withAdListener(adListener).build());
     }
 }

@@ -4,16 +4,18 @@ buildscript {
     repositories {
         jcenter()
         google()
-		maven { url 'http://maven.ghostscript.com' }
+		maven { url 'https://maven.ghostscript.com' }
         maven {url 'https://maven.fabric.io/public'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'com.google.gms:google-services:4.2.0'
-        classpath 'io.fabric.tools:gradle:1.25.4'
 
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
+//
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+//        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
+
+        classpath "com.android.tools.build:gradle:7.1.0-alpha01"
+        classpath 'com.google.gms:google-services:4.3.8'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.0'
     }
 }
 

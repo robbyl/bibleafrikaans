@@ -9,33 +9,30 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.arlib.floatingsearchview.util.Util;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -54,6 +51,7 @@ import tz.co.wadau.bibleinafrikaans.model.Book;
 import tz.co.wadau.bibleinafrikaans.model.BookSuggestion;
 import tz.co.wadau.bibleinafrikaans.model.Chapter;
 import tz.co.wadau.bibleinafrikaans.model.Verse;
+import tz.co.wadau.bibleinafrikaans.utils.AdManager;
 import tz.co.wadau.bibleinafrikaans.utils.Utils;
 
 import static tz.co.wadau.bibleinafrikaans.R.id.vpPager;
@@ -90,11 +88,11 @@ public class BibleActivity extends AppCompatActivity
     private Context mContext;
     private int currTab;
     private long mBackPressed;
-    private InterstitialAd mInterstitialAd;
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private CoordinatorLayout coordinatorLayout;
     private final String ADMOB_APP_ID = "ca-app-pub-6949253770172194~2746379503";
-    private int songTitleClick, CLICKS_TILL_AD_SHOW = 3;
+    private int songTitleClick, CLICKS_TILL_AD_SHOW = 4;
+    public static boolean SHOW_AD_WHEN_LOADED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,29 +122,14 @@ public class BibleActivity extends AppCompatActivity
         initializeLayoutPane();
         new LoadBooks().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         setupFloatingSearch();
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        tabLayout.addOnTabSelectedListener(onTabSelectedListener);
 
         openChapterFromBookmark();
         setupDailyVersesNotification(this);
 
-        setupInterstitialAd();
-        requestNewInterstitial();
+        SHOW_AD_WHEN_LOADED = true;
+        AdManager.initialize(this);
+        AdManager.createAd();
     }
 
     public BibleActivity() {
@@ -169,8 +152,6 @@ public class BibleActivity extends AppCompatActivity
             currentFragment.onBackPressed();
         } else if (resetBookListToOriginalState()) {
             Log.d(TAG, "Just reset filtered book list to original state");
-        } else if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
         } else if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
             super.onBackPressed();
         } else {
@@ -184,35 +165,32 @@ public class BibleActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(final MenuItem menuItem) {
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Handle navigation view item clicks here.
-                Context context = getApplicationContext();
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            // Handle navigation view item clicks here.
+            Context context = getApplicationContext();
 
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_bookmarks:
-                        startActivity(new Intent(context, BookmarksActivity.class));
-                        break;
-                    case R.id.nav_verse_highlight:
-                        startActivity(new Intent(context, VerseHighlightsActivity.class));
-                        break;
-                    case R.id.nav_notes:
-                        startActivity(new Intent(context, NotesActivity.class));
-                        break;
-                    case R.id.nav_search:
-                        startActivity(new Intent(context, VerseSearchActivity.class));
-                        break;
-                    case R.id.nav_share:
-                        Utils.startShareActivity(context);
-                        break;
-                    case R.id.nav_rate:
-                        launchMarket();
-                        break;
-                    case R.id.nav_settings:
-                        startActivity(new Intent(context, SettingsActivity.class));
-                        break;
-                }
+            switch (menuItem.getItemId()) {
+                case R.id.nav_bookmarks:
+                    startActivity(new Intent(context, BookmarksActivity.class));
+                    break;
+                case R.id.nav_verse_highlight:
+                    startActivity(new Intent(context, VerseHighlightsActivity.class));
+                    break;
+                case R.id.nav_notes:
+                    startActivity(new Intent(context, NotesActivity.class));
+                    break;
+                case R.id.nav_search:
+                    startActivity(new Intent(context, VerseSearchActivity.class));
+                    break;
+                case R.id.nav_share:
+                    Utils.startShareActivity(context);
+                    break;
+                case R.id.nav_rate:
+                    launchMarket();
+                    break;
+                case R.id.nav_settings:
+                    startActivity(new Intent(context, SettingsActivity.class));
+                    break;
             }
         }, 200);
 
@@ -233,6 +211,7 @@ public class BibleActivity extends AppCompatActivity
     public void onChapterSelected(Chapter chapter) {
 
         songTitleClick++;
+        InterstitialAd mInterstitialAd = AdManager.getAd();
 
         if (mTwoPane) {
             Bundle arguments = new Bundle();
@@ -246,16 +225,39 @@ public class BibleActivity extends AppCompatActivity
             final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 
-            if (mInterstitialAd.isLoaded() && ((songTitleClick % CLICKS_TILL_AD_SHOW) == 0)) {
+            if (mInterstitialAd != null && (SHOW_AD_WHEN_LOADED || (songTitleClick % CLICKS_TILL_AD_SHOW) == 0)) {
                 mInterstitialAd.show();
 
-                mInterstitialAd.setAdListener(new AdListener() {
+                mInterstitialAd.buildLoadAdConfig().withAdListener(new InterstitialAdListener() {
                     @Override
-                    public void onAdClosed() {
-                        super.onAdClosed();
-                        if (songTitleClick == CLICKS_TILL_AD_SHOW && songTitleClick <= CLICKS_TILL_AD_SHOW)
-                            requestNewInterstitial();
+                    public void onInterstitialDisplayed(Ad ad) {
+                        SHOW_AD_WHEN_LOADED = false;
+                    }
+
+                    @Override
+                    public void onInterstitialDismissed(Ad ad) {
                         transaction.replace(R.id.verse_container, fragment).commitAllowingStateLoss();
+                        AdManager.createAd();
+                    }
+
+                    @Override
+                    public void onError(Ad ad, AdError adError) {
+
+                    }
+
+                    @Override
+                    public void onAdLoaded(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void onAdClicked(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void onLoggingImpression(Ad ad) {
+
                     }
                 });
             } else {
@@ -269,16 +271,40 @@ public class BibleActivity extends AppCompatActivity
             versesIntent.putExtra(ChapterActivity.CHAPTER_NUMBER, chapter.getNumber());
             versesIntent.putExtra(ChapterActivity.CHAPTER_TOTAL_NUMBER, chapter.getTotalChapters());
 
-            if (mInterstitialAd.isLoaded() && ((songTitleClick % CLICKS_TILL_AD_SHOW) == 0)) {
+            if (mInterstitialAd != null && (SHOW_AD_WHEN_LOADED || (songTitleClick % CLICKS_TILL_AD_SHOW) == 0)) {
                 mInterstitialAd.show();
 
-                mInterstitialAd.setAdListener(new AdListener() {
+                mInterstitialAd.buildLoadAdConfig().withAdListener(new InterstitialAdListener() {
                     @Override
-                    public void onAdClosed() {
-                        super.onAdClosed();
-                        if (songTitleClick == CLICKS_TILL_AD_SHOW && songTitleClick <= CLICKS_TILL_AD_SHOW)
-                            requestNewInterstitial();
+                    public void onInterstitialDisplayed(Ad ad) {
+                        SHOW_AD_WHEN_LOADED = false;
+                    }
+
+                    @Override
+                    public void onInterstitialDismissed(Ad ad) {
+                        AdManager.adShowed = true;
                         startActivity(versesIntent);
+                        AdManager.createAd();
+                    }
+
+                    @Override
+                    public void onError(Ad ad, AdError adError) {
+
+                    }
+
+                    @Override
+                    public void onAdLoaded(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void onAdClicked(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void onLoggingImpression(Ad ad) {
+
                     }
                 });
             } else {
@@ -290,35 +316,27 @@ public class BibleActivity extends AppCompatActivity
     }
 
     private void setupFloatingSearch() {
-        mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+        mSearchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
 
-            @Override
-            public void onSearchTextChanged(String oldQuery, final String newQuery) {
+            if (!oldQuery.equals("") && newQuery.equals("")) {
+                //Reset filtered book list to original state
+                mSearchView.clearSuggestions();
+                resetBookListToOriginalState();
 
-                if (!oldQuery.equals("") && newQuery.equals("")) {
-                    //Reset filtered book list to original state
-                    mSearchView.clearSuggestions();
-                    resetBookListToOriginalState();
+            } else {
 
-                } else {
+                currTab = viewPager.getCurrentItem();
 
-                    currTab = viewPager.getCurrentItem();
+                DataHelper.findSuggestions(mContext, currTab, newQuery, 5
+                        , results -> {
 
-                    DataHelper.findSuggestions(mContext, currTab, newQuery, 5
-                            , new DataHelper.OnFindSuggestionsListener() {
-
-                                @Override
-                                public void onResults(List<BookSuggestion> results) {
-
-                                    //this will swap the data and
-                                    //render the collapse/expand animations as necessary
-                                    mSearchView.swapSuggestions(results);
-                                }
-                            });
-                }
-
-                Log.d(TAG, "onSearchTextChanged()");
+                            //this will swap the data and
+                            //render the collapse/expand animations as necessary
+                            mSearchView.swapSuggestions(results);
+                        });
             }
+
+            Log.d(TAG, "onSearchTextChanged()");
         });
 
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
@@ -330,16 +348,11 @@ public class BibleActivity extends AppCompatActivity
 
                 Log.d(TAG, "Book suggestion clicked " + bookSuggestion.getBookName());
                 DataHelper.findBooks(mContext, currTab, bookSuggestion.getBody(),
-                        new DataHelper.OnFindBooksListener() {
-
-                            @Override
-                            public void onResults(List<Book> results) {
-                                //Filter Old Testament list when there are mached oldStatementBooks
-                                if (results.size() > 0) {
-                                    swapCurrTabBooks(results);
-                                }
+                        results -> {
+                            //Filter Old Testament list when there are mached oldStatementBooks
+                            if (results.size() > 0) {
+                                swapCurrTabBooks(results);
                             }
-
                         });
                 Log.d(TAG, "onSuggestionClicked()");
 
@@ -352,15 +365,11 @@ public class BibleActivity extends AppCompatActivity
                 currTab = viewPager.getCurrentItem();
 
                 DataHelper.findBooks(mContext, currTab, query,
-                        new DataHelper.OnFindBooksListener() {
-
-                            @Override
-                            public void onResults(List<Book> results) {
-                                //Replace Old statement oldStatementBooks when user click soft search button
-                                if (results.size() > 0) {
+                        results -> {
+                            //Replace Old statement oldStatementBooks when user click soft search button
+                            if (results.size() > 0) {
 //                                    oldStatementBooks = results;
-                                    swapCurrTabBooks(results);
-                                }
+                                swapCurrTabBooks(results);
                             }
                         });
                 Log.d(TAG, "onSearchAction()");
@@ -393,22 +402,14 @@ public class BibleActivity extends AppCompatActivity
 
         //handle menu clicks the same way as you would
         //in a regular activity
-        mSearchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
-            @Override
-            public void onActionMenuItemSelected(MenuItem item) {
-                //just print action
-                Toast.makeText(mContext.getApplicationContext(), item.getTitle(),
-                        Toast.LENGTH_SHORT).show();
-            }
+        mSearchView.setOnMenuItemClickListener(item -> {
+            //just print action
+            Toast.makeText(mContext.getApplicationContext(), item.getTitle(),
+                    Toast.LENGTH_SHORT).show();
         });
 
         //use this listener to listen to menu clicks when app:floatingSearch_leftAction="showHome"
-        mSearchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
-            @Override
-            public void onHomeClicked() {
-                Log.d(TAG, "onHomeClicked()");
-            }
-        });
+        mSearchView.setOnHomeActionClickListener(() -> Log.d(TAG, "onHomeClicked()"));
 
         /*
          * Here you have access to the left icon and the text of a given suggestion
@@ -421,32 +422,28 @@ public class BibleActivity extends AppCompatActivity
          * Keep in mind that the suggestion list is a RecyclerView, so views are reused for different
          * items in the list.
          */
-        mSearchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
-            @Override
-            public void onBindSuggestion(View suggestionView, ImageView leftIcon,
-                                         TextView textView, SearchSuggestion item, int itemPosition) {
-                BookSuggestion bookSuggestion = (BookSuggestion) item;
+        mSearchView.setOnBindSuggestionCallback((suggestionView, leftIcon, textView, item, itemPosition) -> {
+            BookSuggestion bookSuggestion = (BookSuggestion) item;
 
-                String textColor = "#000000";
-                String textLight = "#787878";
+            String textColor = "#000000";
+            String textLight = "#787878";
 
-                if (bookSuggestion.getIsHistory()) {
-                    leftIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
-                            R.drawable.ic_history_black_24dp, null));
+            if (bookSuggestion.getIsHistory()) {
+                leftIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
+                        R.drawable.ic_history_black_24dp, null));
 
-                    Util.setIconColor(leftIcon, Color.parseColor(textColor));
-                    leftIcon.setAlpha(.36f);
-                } else {
-                    leftIcon.setAlpha(0.0f);
-                    leftIcon.setImageDrawable(null);
-                }
-
-                textView.setTextColor(Color.parseColor(textColor));
-                String text = bookSuggestion.getBody()
-                        .replaceFirst(mSearchView.getQuery(),
-                                "<font color=\"" + textLight + "\">" + mSearchView.getQuery() + "</font>");
-                textView.setText(Html.fromHtml(text));
+                Util.setIconColor(leftIcon, Color.parseColor(textColor));
+                leftIcon.setAlpha(.36f);
+            } else {
+                leftIcon.setAlpha(0.0f);
+                leftIcon.setImageDrawable(null);
             }
+
+            textView.setTextColor(Color.parseColor(textColor));
+            String text = bookSuggestion.getBody()
+                    .replaceFirst(mSearchView.getQuery(),
+                            "<font color=\"" + textLight + "\">" + mSearchView.getQuery() + "</font>");
+            textView.setText(Html.fromHtml(text));
         });
     }
 
@@ -544,31 +541,6 @@ public class BibleActivity extends AppCompatActivity
         }
     }
 
-    private void setupInterstitialAd() {
-        MobileAds.initialize(this, ADMOB_APP_ID);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-6949253770172194/5537738962");
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-
-                Snackbar.make(coordinatorLayout, R.string.tap_to_exit, Snackbar.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("1057137F59AEDAEAE3D83342324D90AB")
-                .build();
-
-        mInterstitialAd.loadAd(adRequest);
-    }
-
     public class LoadBooks extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -590,4 +562,22 @@ public class BibleActivity extends AppCompatActivity
             viewPager.setAdapter(booksPagerAdapter);
         }
     }
+
+    TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            viewPager.setCurrentItem(tab.getPosition());
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
 }

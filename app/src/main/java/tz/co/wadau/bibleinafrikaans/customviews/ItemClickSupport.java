@@ -1,6 +1,6 @@
 package tz.co.wadau.bibleinafrikaans.customviews;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import tz.co.wadau.bibleinafrikaans.R;

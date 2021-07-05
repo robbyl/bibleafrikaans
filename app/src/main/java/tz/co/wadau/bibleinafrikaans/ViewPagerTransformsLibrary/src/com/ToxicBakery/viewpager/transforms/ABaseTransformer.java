@@ -1,6 +1,6 @@
 package tz.co.wadau.bibleinafrikaans.ViewPagerTransformsLibrary.src.com.ToxicBakery.viewpager.transforms;
 
-import android.support.v4.view.ViewPager.PageTransformer;
+import androidx.viewpager.widget.ViewPager.PageTransformer;
 import android.view.View;
 
 public abstract class ABaseTransformer implements PageTransformer {

@@ -9,14 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +18,23 @@ import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
+import com.facebook.ads.AudienceNetworkAds;
 
 import tz.co.wadau.bibleinafrikaans.ViewPagerTransformsLibrary.src.com.ToxicBakery.viewpager.transforms.StackTransformer;
 import tz.co.wadau.bibleinafrikaans.adapter.ChaptersPagerAdapter;
@@ -66,6 +76,7 @@ public class ChapterActivity extends AppCompatActivity
     public boolean isCountdownRunning = false;
     private LinearLayout bottomToolbarLayout;
     private LinearLayout chapterTutorialContainer;
+    AdView adView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -134,6 +145,8 @@ public class ChapterActivity extends AppCompatActivity
         });
 
         Log.d(TAG, "Chapter numbers " + chapterTotalNumber);
+
+        showBannerAd(this);
     }
 
     @Override
@@ -345,5 +358,50 @@ public class ChapterActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    private void showBannerAd(Context context) {
+        AudienceNetworkAds.initialize(this);
+        adView = new AdView(this, "619312825220910_1197922280693292", AdSize.BANNER_HEIGHT_50);
+        LinearLayout adContainer = findViewById(R.id.banner_container);
+
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) bottomToolbarLayout.getLayoutParams();
+        params.setMargins(0, 0, 0, 0);
+        bottomToolbarLayout.setLayoutParams(params);
+
+        AdListener adListener = new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                Log.d(TAG, "Error loading ad " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Ad loaded callback
+                Log.d(TAG, "Ad loaded ");
+
+                    DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+                    int marginDp = (int) (50 * displayMetrics.density);
+                    params.setMargins(0, 0, 0, marginDp);
+                    bottomToolbarLayout.setLayoutParams(params);
+
+                    adContainer.addView(adView); //Show banner ad
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+            }
+        };
+
+        adView.loadAd(adView.buildLoadAdConfig()
+                .withAdListener(adListener)
+                .build());
     }
 }

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="tz.co.wadau.bibleinafrikaans.VerseSearchActivity">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                     android:layout_height="64dp"
                     android:background="@color/colorPrimary" />
 
-                <android.support.design.widget.TabLayout
+                <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout_verses_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:tabIndicatorColor="@color/colorAccentSecondary" />
-            </android.support.design.widget.AppBarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
             <LinearLayout
                 android:id="@+id/empty_search_verse"
@@ -47,7 +47,7 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_marginTop="90dp"
                     android:layout_width="144dp"
                     android:layout_height="144dp"
@@ -62,14 +62,14 @@
                     android:textSize="18sp"/>
             </LinearLayout>
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/verse_search_results"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/verse_search"

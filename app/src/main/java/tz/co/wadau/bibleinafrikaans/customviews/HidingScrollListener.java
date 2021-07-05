@@ -1,6 +1,6 @@
 package tz.co.wadau.bibleinafrikaans.customviews;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
     private static String TAG = HidingScrollListener.class.getSimpleName();

@@ -13,7 +13,7 @@
     android:paddingStart="?listPreferredItemPaddingLeft"
     android:paddingTop="8dp">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bible_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"

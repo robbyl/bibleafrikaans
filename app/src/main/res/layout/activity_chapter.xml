@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_verses"
@@ -8,11 +8,11 @@
     android:orientation="vertical"
     tools:context=".ChapterActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/verses_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:titleTextColor="@android:color/white" />
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:animateLayoutChanges="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/verses_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:onClick="closeTutorial"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     app:srcCompat="@drawable/ic_tutorial_close" />
@@ -84,7 +84,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/left_tutorial_img"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
@@ -105,7 +105,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_marginTop="150dp"
@@ -127,7 +127,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         app:srcCompat="@drawable/ic_tutorial_verse_right" />
@@ -157,7 +157,7 @@
             android:layout_height="1dp"
             android:background="?android:dividerHorizontal" />
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/bottom_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
-                <android.support.v7.widget.ActionMenuView
+                <androidx.appcompat.widget.ActionMenuView
                     android:id="@+id/bottom_action_menu"
                     android:layout_width="300dp"
                     android:layout_height="?attr/actionBarSize"
@@ -182,6 +182,15 @@
                     android:padding="0dp" />
 
             </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:elevation="6dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
